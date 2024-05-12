@@ -6,6 +6,9 @@ import WinUI
 
 @main
 public class PreviewApp: SwiftApplication {
+
+    let c = Calculator()
+
     /// A required initializer for the application. Non-UI setup for your application can be done here.
     /// Subscribing to unhandledException is a good place to handle any unhandled exceptions that may occur
     /// in your application.
@@ -30,9 +33,9 @@ public class PreviewApp: SwiftApplication {
 
         let btn = Button()
         btn.content = "A test button"
-        btn.click.addHandler { _, args in
+        btn.click.addHandler { [weak self] _, args in
             print("Button Clicked!")
-            print(args.debugDescription)
+            print(self?.c.calculate() ?? "Failed to call calculate")
         }
 
         let panel = StackPanel()

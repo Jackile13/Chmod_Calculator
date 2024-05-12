@@ -28,7 +28,7 @@ let package = Package(
                 .product(name: "WindowsFoundation", package: "swift-windowsfoundation"),
             ],
             path:"Chmod_Calculator",
-            exclude: ["CMC_SwiftUI"],
+            exclude: ["Chmod_SwiftUI", "Chmod_SwiftUI.xcodeproj"],
             linkerSettings: GUILinkerSettings
         ),
     ]
