@@ -31,7 +31,11 @@ enum Operation {
 }
 
 class IndividualPermissions {
-    public var value = 0
+    public var value = 0 {
+        didSet {
+            print("SET VALUE \(value)")
+        }
+    }
 
     public func changeValue(operation: Operation, access: AccessType) {
         changeValue(operation: operation, by: access.rawValue)
@@ -47,17 +51,55 @@ class IndividualPermissions {
         } else {
             value -= increment
         }
+
+        updateToggles()
     }
+
+    func updateToggles() {}
 }
 
 class UserPermissions: IndividualPermissions {
     public var read = false
     public var write = false
     public var execute = false
+
+    override func updateToggles() {
+        var num = value
+
+        if num >= 4 { 
+            read = true
+            num -= 4
+        }
+        if num >= 2 {
+            write = true
+            num -= 2
+        }
+        if num >= 1 {
+            execute = true
+            num -= 1
+        }
+    }
 }
 
 class SpecialPermissions: IndividualPermissions {
     public var setupId = false
     public var setgrid = false
     public var sticky = false
+
+    override func updateToggles() {
+        var num = value
+
+        if num >= 4 { 
+            setupId = true
+            num -= 4
+        }
+        if num >= 2 {
+            setgrid = true
+            num -= 2
+        }
+        if num >= 1 {
+            sticky = true
+            num -= 1
+        }
+    }
 }
